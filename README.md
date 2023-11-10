@@ -1,12 +1,12 @@
-# Lab 10 - Introduction to Frameworks
+# Lab 11 - Introduction to Frameworks
 
 Repo link: https://github.com/CMU-17-214/f23-lab11
 
-In this recitation, you will create a TicTacToe plug-in for a simple framework that facilitates the implementation of 2D grid games. To make grid game development straightforward, the game plugins must only implement the game’s logic. Everything else (plug-in registration, player management, GUI implementation, etc.) is done by the framework.
+In this recitation, you will create a TicTacToe plug-in for a simple framework that facilitates the implementation of 2D grid games. To make grid game development straightforward, the game plugins must only implement the game’s logic. Everything else (plug-in registration, player management, GUI implementation, etc.) is done by the framework. We hope that this provides a good illustration for the kind of extension mechanisms that may be useful for implementing other extensible systems (e.g., Santorini God Cards).
 
 ## Deliverables
 - [ ] Implement a simple Tic-Tac-Toe plugin, in either Java or TypeScript, and register it with the framework.
-- [ ] Draw a partial object model of the system, including the framework and the plugins.
+- [ ] Discuss what the extension points are in this system and explain why to your TA.
 - [ ] Discuss what design pattern is being used here with your TA.
 
 ## Introduction
@@ -20,7 +20,7 @@ On the other hand, plug-ins are responsible for implementing specific features o
 ## The Framework
 The core implementation of the framework is located in the core package/directory, a GamePlugin interface, and a GameFramework interface defining the methods Plugins can call on the framework. Grid game plug-ins must implement the GamePlugin interface in order to be registered with the framework. The GamePlugin interface contains several lifecycle methods that are called at various times throughout the period of a game (see the figure below). It also has a few getter methods that the framework will call to obtain the name of the plug-in game, the width/height of the plug-in game’s board, etc.
 
-![lifecycle](lifecycle.png)
+![lifecycle](images/lifecycle.png)
 
 Two example plug-ins, “Rock-Paper-Scissors” (a classic grid-based game, seriously) and “Memory”, are already implemented for you in the plugin package/directory. You can start backend and frontend, and then go to http://localhost:3000 to see the behavior.
 
