@@ -33,22 +33,13 @@ To register your plugin with the framework, add the fully-qualified class name o
 
 An implementation completely in TypeScript is provided to you in the typescript branch. Check out the code in src/pluginloader.ts to see how to load plugins in Typescript. Any .js file in the plugin directory is loaded (files created by the compiler from .ts files work fine). If it exports a method “init()” that method is called and expected to return an object implementing the GamePlugin interface. The loading code is fairly straightforward using promises.
 
-### Set Up Backend Server ###
+### Set Up Java ###
 Either run the Java backend by using your IDE or by typing 
 ```
 mvn exec:exec
 ```
 in the backend folder. This will start the Java server at http://localhost:8080.
 
-To run the TypeScript backend, run
-```
-npm install
-npm run compile
-npm run serve
-```
-to start the server.
-
-### Set Up Frontend Server ###
 In the frontend folder, run
 
 ```
@@ -57,3 +48,15 @@ npm start
 ```
 
 This will start the frontend server at http://localhost:3000. You can update the frontend code as the server is running in the development mode (i.e., npm start). It will automatically recompile and reload.
+
+
+### Set Up Typescript ###
+
+Run
+```
+npm install
+npm run compile
+npm run serve
+```
+to start the server.
+
