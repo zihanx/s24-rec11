@@ -1,11 +1,11 @@
 interface GameState {
-  name: String;
-  footer: String;
+  name: string;
+  footer: string;
   cells: Cell[];
   plugins: Plugin[];
-  numColStyle: String;
-  currentPlayer: String;
-  gameOverMsg: String;
+  numColStyle: string;
+  currentPlayer: string;
+  gameOverMsg: string;
   showDropdown: boolean;
 }
   

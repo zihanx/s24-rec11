@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css'; // import the css file to enable your styles.
-import { GameState, Cell } from './game';
+import { GameState, Cell, Plugin } from './game';
 
-const Game: React.FC = () => {
+function Game() {
   const [state, setState] = useState<GameState>({
     cells: [],
     name : "A Game Framework",
@@ -37,27 +37,6 @@ const Game: React.FC = () => {
                                 }))
     }
 
-  const createCell = (cell: Cell, index: number) => {
-    const playableText = cell.playable ? 'playable' : '';
-    if (cell.playable)
-      /**
-       * key is used for React when given a list of items. It
-       * helps React to keep track of the list items and decide
-       * which list item need to be updated.
-       * @see https://reactjs.org/docs/lists-and-keys.html#keys
-       */
-      return (
-        <div key={index}>
-          <button type="button" onClick={() => play(cell.x, cell.y)}>
-            <div className={`cell ${playableText}`}>{cell.text}</div>
-          </button>
-        </div>
-      )
-    else
-      return (
-        <div className={`cell ${playableText}`}>{cell.text}</div>
-      )
-  }
 
   async function choosePlugin(i: number) {
     const response = await fetch(`/plugin?i=${i}`)
@@ -74,46 +53,6 @@ const Game: React.FC = () => {
   }
   
 
-  const createInstructions = () => {
-    if (state.gameOverMsg) {
-      return (
-        <div id="game_over_message">{state.gameOverMsg}</div>
-      )
-    }
-    else if (state.currentPlayer) {
-      return (
-        <div id="current_player_name">Current player is {state.currentPlayer}</div>
-      )
-    }
-    else {
-      return (
-        <div></div>
-      )
-    }
-  }
-
-  const createDropdown = () => {
-    if (state.plugins.length === 0) {
-      return (
-        <span>No games loaded</span>
-      )
-    }
-    else {
-      return (
-        <div>
-          {state.plugins.map((plugin, index) => createPlugin(plugin.name, index))}
-        </div>
-      )
-    }
-  }
-
-  const createPlugin = (name: string, index: number) => {
-    return (
-      <div key={index}>
-        <button type="button" onClick={() => choosePlugin(index)}>{name}</button>
-      </div>
-    )
-  }
 
   const toggleDropdown = () => {
     setState((prevState) => ({...prevState, showDropdown: !state.showDropdown}))
@@ -123,10 +62,10 @@ const Game: React.FC = () => {
     <div>
       <div id="game_name">{state.name}</div>
 
-      {createInstructions()}
+      <Instructions gameOverMsg={state.gameOverMsg} currentPlayer={state.currentPlayer} />
 
       <div id="board" style={{gridTemplateColumns: state.numColStyle.valueOf()}}>
-        {state.cells.map((cell, i) => createCell(cell, i))}
+        {state.cells.map((cell, i) => <DisplayCell cell={cell} index={i} play={play} />)}
       </div>
 
       <div id="footer">{state.footer}</div>
@@ -134,10 +73,71 @@ const Game: React.FC = () => {
       <div id="bottombar">
         <button className="dropbtn" onClick={/* get the function, not call the function */toggleDropdown}>New Game</button>
         <div id="dropdown-content" className={state.showDropdown ? "show" : "hide"}>
-          {createDropdown()}
+          <Dropdown plugins={state.plugins} choosePlugin={choosePlugin} />
         </div>
      </div>
 
+    </div>
+  )
+}
+
+
+function DisplayCell({cell, index, play}: { cell: Cell, index: number, play: (x: number, y: number) => void }) {
+  const playableText = cell.playable ? 'playable' : '';
+  if (cell.playable)
+    /**
+     * key is used for React when given a list of items. It
+     * helps React to keep track of the list items and decide
+     * which list item need to be updated.
+     * @see https://reactjs.org/docs/lists-and-keys.html#keys
+     */
+    return (
+        <div className={`cell ${playableText}`} onClick={() => play(cell.x, cell.y)}>{cell.text}</div>
+    )
+  else
+    return (
+      <div className={`cell ${playableText}`}>{cell.text}</div>
+    )
+}
+
+
+function Instructions({gameOverMsg, currentPlayer}: { gameOverMsg: string, currentPlayer: string }) {
+  if (gameOverMsg) {
+    return (
+      <div id="game_over_message">{gameOverMsg}</div>
+    )
+  }
+  else if (currentPlayer) {
+    return (
+      <div id="current_player_name">Current player is {currentPlayer}</div>
+    )
+  }
+  else {
+    return (
+      <div></div>
+    )
+  }
+}
+
+function Dropdown({plugins, choosePlugin}:{plugins: Plugin[], choosePlugin: (i: number) => void}) {
+  if (plugins.length === 0) {
+    return (
+      <span>No games loaded</span>
+    )
+  }
+  else {
+    return (
+      <div>
+        {plugins.map((plugin, index) => <PluginBtn name={plugin.name} index={index} choosePlugin={choosePlugin} />)}
+      </div>
+    )
+  }
+}
+
+function PluginBtn({name, index, choosePlugin}: {name: string, index: number, choosePlugin: (i: number) => void}) {
+  return (
+    <div key={index}>
+      <button type="button" onClick={() => choosePlugin(index)}>{name}</button>
     </div>
   )
 }
