@@ -40,8 +40,9 @@ public class GameState {
     private static String getNumColStyle(GameFrameworkImpl game) {
         int numCols = game.getGridWidth();
         List<String> style = new ArrayList<String>();
+	String width = String.format("%.1f%%", 100d/numCols);
         for (int i=0; i<numCols; i++){
-            style.add("auto");
+            style.add(width);
         }
         return String.join(" ", style);
 
