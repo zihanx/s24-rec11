@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css'; // import the css file to enable your styles.
-import { GameState, Cell, Plugin } from './game';
+import { GameState, Cell, Plugin } from './gamecore';
 
-function Game() {
+export default function Game() {
   const [state, setState] = useState<GameState>({
     cells: [],
     name : "A Game Framework",
@@ -142,4 +142,3 @@ function PluginBtn({name, index, choosePlugin}: {name: string, index: number, ch
   )
 }
 
-export default Game
