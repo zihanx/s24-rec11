@@ -1,8 +1,8 @@
-package edu.cmu.cs.cs214.rec09.plugin;
+package edu.cmu.cs.cs214.rec11.plugin;
 
-import edu.cmu.cs.cs214.rec09.framework.core.GameFramework;
-import edu.cmu.cs.cs214.rec09.framework.core.GamePlugin;
-import edu.cmu.cs.cs214.rec09.games.RockPaperScissors;
+import edu.cmu.cs.cs214.rec11.framework.core.GameFramework;
+import edu.cmu.cs.cs214.rec11.framework.core.GamePlugin;
+import edu.cmu.cs.cs214.rec11.games.RockPaperScissors;
 
 /**
  * An example Rock Paper Scissors game plug-in.

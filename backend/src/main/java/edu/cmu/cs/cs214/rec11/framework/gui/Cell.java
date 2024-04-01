@@ -1,4 +1,4 @@
-package edu.cmu.cs.cs214.rec09.framework.gui;
+package edu.cmu.cs.cs214.rec11.framework.gui;
 
 class Cell {
     private final int x;

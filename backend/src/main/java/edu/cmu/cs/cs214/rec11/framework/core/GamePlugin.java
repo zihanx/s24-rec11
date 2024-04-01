@@ -1,4 +1,4 @@
-package edu.cmu.cs.cs214.rec09.framework.core;
+package edu.cmu.cs.cs214.rec11.framework.core;
 
 /**
  * The game plug-in interface that plug-ins use to implement and register games
